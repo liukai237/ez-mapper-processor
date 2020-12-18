@@ -1,0 +1,6 @@
+com\iakuil\ezm\processor\AbstractJsonTypeHandler.class
+com\iakuil\ezm\processor\AnnotationProcessor.class
+com\iakuil\ezm\processor\JsonEntity.class
+META-INF\services\javax.annotation.processing.Processor
+com\iakuil\ezm\processor\annotation\JsonEntity.class
+com\iakuil\ezm\processor\JsonUtils.class
