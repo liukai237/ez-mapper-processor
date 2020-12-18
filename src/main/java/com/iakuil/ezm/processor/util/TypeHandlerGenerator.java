@@ -26,20 +26,23 @@ public class TypeHandlerGenerator {
     }
 
     public static void createTypeHandler(String className) {
+        // 获取要修改的POJO类
         ClassPool pool = ClassPool.getDefault();
+        pool.importPackage(className);
 
-        // 创建一个空类
+        // 创建一个XxxTypeHandler空类
         CtClass cc = pool.makeClass(className + "TypeHandler");
 
         // 继承父类及签名
-        CtClass parent = pool.makeClass(AbstractJsonTypeHandler.class.getName());
+        String superClassName = AbstractJsonTypeHandler.class.getName();
+        CtClass parent = pool.makeClass(superClassName);
 
         // 创建默认构造方法
         CtClass[] params = new CtClass[]{};
 
         try {
             cc.setSuperclass(parent);
-            cc.setGenericSignature(new SignatureAttribute.TypeVariable("AbstractJsonTypeHandler<" + StringUtils.substringAfterLast(className, ".") + ">").encode());
+            cc.setGenericSignature(new SignatureAttribute.TypeVariable(superClassName + "<" + StringUtils.substringAfterLast(className, ".") + ">").encode());
 
             CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS, null, null, cc);
             cc.addConstructor(ctor);
