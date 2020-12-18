@@ -1,5 +1,6 @@
 package com.iakuil.ezm.processor;
 
+import com.iakuil.ezm.processor.util.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

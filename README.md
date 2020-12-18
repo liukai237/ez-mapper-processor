@@ -1,1 +1,1 @@
-基于mybatis-spring-boot-starter扩展的几个轮子
+基于mybatis-spring-boot-starter的扩展，后续会不断完善。
