@@ -19,6 +19,8 @@
         <jackson-core.version>2.12.0</jackson-core.version>
         <jackson-databind.version>2.10.5</jackson-databind.version>
         <auto-service.version>1.0-rc7</auto-service.version>
+
+        <junit.version>5.7.0</junit.version>
     </properties>
 
     <dependencies>
@@ -69,10 +71,15 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.0</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
     </dependencies>
 
     <build>

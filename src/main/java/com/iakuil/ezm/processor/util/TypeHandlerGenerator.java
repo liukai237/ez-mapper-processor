@@ -6,10 +6,7 @@ import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
 import javassist.bytecode.ConstPool;
 import javassist.bytecode.SignatureAttribute;
-import javassist.bytecode.annotation.Annotation;
-import javassist.bytecode.annotation.ClassMemberValue;
-import javassist.bytecode.annotation.EnumMemberValue;
-import org.apache.commons.lang3.StringUtils;
+import javassist.bytecode.annotation.*;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
@@ -26,41 +23,48 @@ public class TypeHandlerGenerator {
     }
 
     public static void createTypeHandler(String className) {
-        // 获取要修改的POJO类
         ClassPool pool = ClassPool.getDefault();
-        pool.importPackage(className);
 
         // 创建一个XxxTypeHandler空类
-        CtClass cc = pool.makeClass(className + "TypeHandler");
-
-        // 继承父类及签名
-        String superClassName = AbstractJsonTypeHandler.class.getName();
-        CtClass parent = pool.makeClass(superClassName);
-
-        // 创建默认构造方法
-        CtClass[] params = new CtClass[]{};
+        CtClass handlerClazz = pool.makeClass(className + "TypeHandler");
 
         try {
-            cc.setSuperclass(parent);
-            cc.setGenericSignature(new SignatureAttribute.TypeVariable(superClassName + "<" + StringUtils.substringAfterLast(className, ".") + ">").encode());
+            // 添加基类
+            handlerClazz.setSuperclass(pool.makeClass(AbstractJsonTypeHandler.class.getName()));
 
-            CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS, null, null, cc);
-            cc.addConstructor(ctor);
+            // 添加基类签名
+            SignatureAttribute.ClassType sig = new SignatureAttribute.ClassType(
+                    AbstractJsonTypeHandler.class.getName(),
+                    new SignatureAttribute.TypeArgument[]{
+                            new SignatureAttribute.TypeArgument(new SignatureAttribute.ClassType(className))
+                    }
+            );
+            handlerClazz.setGenericSignature(sig.encode());
+
+            // 创建默认构造方法
+            CtClass[] params = new CtClass[]{};
+            CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS, null, null, handlerClazz);
+            handlerClazz.addConstructor(ctor);
         } catch (CannotCompileException e) {
             throw new IllegalStateException("Occurring an exception during class generating!", e);
         }
 
-        ClassFile ccFile = cc.getClassFile();
+        // 处理@MappedTypes和@MappedJdbcTypes注解
+        ClassFile ccFile = handlerClazz.getClassFile();
         ConstPool constpool = ccFile.getConstPool();
 
         Annotation mappedJdbcTypes = new Annotation(MappedJdbcTypes.class.getName(), constpool);
         EnumMemberValue enumMemberValue = new EnumMemberValue(constpool);
         enumMemberValue.setType(JdbcType.class.getName());
         enumMemberValue.setValue("VARCHAR");
-        mappedJdbcTypes.addMemberValue("value", enumMemberValue);
+        ArrayMemberValue jdbcTypeValues = new ArrayMemberValue(constpool);
+        jdbcTypeValues.setValue(new MemberValue[]{enumMemberValue});
+        mappedJdbcTypes.addMemberValue("value", jdbcTypeValues);
 
         Annotation mappedTypes = new Annotation(MappedTypes.class.getName(), constpool);
-        mappedTypes.addMemberValue("value", new ClassMemberValue(className, constpool));
+        ArrayMemberValue mappedTypeValues = new ArrayMemberValue(constpool);
+        mappedTypeValues.setValue(new MemberValue[]{new ClassMemberValue(className, constpool)});
+        mappedTypes.addMemberValue("value", mappedTypeValues);
 
         AnnotationsAttribute classAttr = new AnnotationsAttribute(constpool, AnnotationsAttribute.visibleTag);
         classAttr.addAnnotation(mappedTypes);
@@ -69,7 +73,7 @@ public class TypeHandlerGenerator {
 
         // 生成class文件
         try {
-            cc.writeFile("target/classes");
+            handlerClazz.writeFile("target/classes");
         } catch (CannotCompileException | IOException e) {
             throw new IllegalStateException("Occurring an exception during class writing!", e);
         }
