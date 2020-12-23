@@ -1,4 +1,4 @@
-package com.iakuil.ezm.processor.util;
+package com.iakuil.em.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

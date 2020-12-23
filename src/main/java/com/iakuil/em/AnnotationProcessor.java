@@ -1,7 +1,7 @@
-package com.iakuil.ezm.processor;
+package com.iakuil.em;
 
 import com.google.auto.service.AutoService;
-import com.iakuil.ezm.processor.util.TypeHandlerGenerator;
+import com.iakuil.em.util.TypeHandlerGenerator;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -15,7 +15,7 @@ import java.util.Set;
  * 注解处理器
  */
 @AutoService(Processor.class)
-@SupportedAnnotationTypes(value = {"com.iakuil.ezm.processor.annotation.JsonEntity"})
+@SupportedAnnotationTypes(value = {"com.iakuil.em.annotation.JsonEntity"})
 @SupportedSourceVersion(value = SourceVersion.RELEASE_8)
 public class AnnotationProcessor extends AbstractProcessor {
 

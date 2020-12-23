@@ -1,6 +1,7 @@
-package com.iakuil.ezm.processor.util;
+package com.iakuil.em.util;
 
-import com.iakuil.ezm.processor.AbstractJsonTypeHandler;
+import com.iakuil.em.AbstractJsonTypeHandler;
+import com.iakuil.em.annotation.JsonEntity;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
@@ -16,7 +17,7 @@ import java.io.IOException;
 /**
  * TypeHandler生成器
  *
- * <p>如果JavaBean存在{@link com.iakuil.ezm.processor.annotation.JsonEntity}注解，则生成对应的TypeHandler。</p>
+ * <p>如果JavaBean存在{@link JsonEntity}注解，则生成对应的TypeHandler。</p>
  */
 public class TypeHandlerGenerator {
     private TypeHandlerGenerator() {

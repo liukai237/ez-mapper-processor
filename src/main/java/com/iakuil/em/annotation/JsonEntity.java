@@ -1,4 +1,4 @@
-package com.iakuil.ezm.processor.annotation;
+package com.iakuil.em.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

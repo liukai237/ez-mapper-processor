@@ -1,7 +1,6 @@
-package com.iakuil.ezm.processor;
+package com.iakuil.em;
 
-import com.iakuil.ezm.processor.util.JsonUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.iakuil.em.util.JsonUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
@@ -25,18 +24,22 @@ public abstract class AbstractJsonTypeHandler<T> extends BaseTypeHandler<T> {
     @Override
     public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String data = rs.getString(columnName);
-        return StringUtils.isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
+        return isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
     }
 
     @Override
     public T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String data = rs.getString(columnIndex);
-        return StringUtils.isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
+        return isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
     }
 
     @Override
     public T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String data = cs.getString(columnIndex);
-        return StringUtils.isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
+        return isBlank(data) ? null : JsonUtils.json2bean(data, (Class<T>) getRawType());
+    }
+
+    private boolean isBlank(String str) {
+        return str == null || "".equals(str);
     }
 }
