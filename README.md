@@ -60,4 +60,35 @@ public class BarTypeHandler extends AbstractJsonTypeHandler<Bar> {
 mybatis:
   type-handlers-package: com.yourdomain.sample.yourpackage
 ```
+
+### 局限
+分布式的架构中需要先将存放TypeHandler的模块install或者deploy。如果从多模块的Maven工程的Root POM启动构建，则建议在相关子模块中做如下配置：
+```xml
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+            <execution>
+                <id>compile</id>
+                <phase>process-classes</phase>
+                <configuration>
+                    <target name="copy">
+                        <property name="parentDir" location=".."/>
+                        <move todir="${project.build.directory}" overwrite="true">
+                            <fileset dir="${parentDir}/target">
+                                <include name="**/*TypeHandler.class" />
+                            </fileset>
+                        </move>
+                        <delete dir="${parentDir}/target"/>
+                    </target>
+                </configuration>
+                <goals>
+                    <goal>run</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+```
+
 -- THE END --
