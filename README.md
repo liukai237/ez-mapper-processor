@@ -1,6 +1,6 @@
-# Easy Mybatis Processor
+# Easy Mapper Processor
 
--- 基于mybatis的扩展注解
+--- 一个基于MyBatis的注解扩展 ---
 
 ## 目前支持的功能
 * JSON字段映射，自动生成JSON字段TypeHandler。
@@ -21,7 +21,7 @@ mvn clean install
     </dependency>
 ```
 ### 配置注解参数
-
+可以和Lombok等注解处理器一样配置：
 ```xml
 
 <plugin>
@@ -29,11 +29,13 @@ mvn clean install
     <artifactId>maven-compiler-plugin</artifactId>
     <version>3.8.1</version>
     <configuration>
-        <annotationProcessors>
-            <annotationProcessor>
-                com.iakuil.em.AnnotationProcessor
-            </annotationProcessor>
-        </annotationProcessors>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>com.iakuil</groupId>
+                <artifactId>ez-mapper-processor</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </path>
+        </annotationProcessorPaths>
     </configuration>
 </plugin>
 ```
