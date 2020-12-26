@@ -61,34 +61,7 @@ mybatis:
   type-handlers-package: com.yourdomain.sample.yourpackage
 ```
 
-### 局限
-分布式的架构中需要先将存放TypeHandler的模块install或者deploy。如果从多模块的Maven工程的Root POM启动构建，则建议在相关子模块中做如下配置：
-```xml
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-            <execution>
-                <id>compile</id>
-                <phase>process-classes</phase>
-                <configuration>
-                    <target name="copy">
-                        <property name="parentDir" location=".."/>
-                        <move todir="${project.build.directory}" overwrite="true">
-                            <fileset dir="${parentDir}/target">
-                                <include name="**/*TypeHandler.class" />
-                            </fileset>
-                        </move>
-                        <delete dir="${parentDir}/target"/>
-                    </target>
-                </configuration>
-                <goals>
-                    <goal>run</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-```
+### 局限性
+如果是多模块的Maven工程，整个工程中不能有报名+类名完全一致的JSON映射对象。比如：A模块有一个org.sample.Foo，B模块也有一个org.sample.Foo，并且两个类都添加了`@JsonEntity`注解，编译时就会报错：Too Many org.sample.Foo。
 
 -- THE END --

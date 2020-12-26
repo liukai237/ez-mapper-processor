@@ -12,7 +12,10 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * TypeHandler生成器
@@ -20,6 +23,8 @@ import java.io.IOException;
  * <p>如果JavaBean存在{@link JsonEntity}注解，则生成对应的TypeHandler。</p>
  */
 public class TypeHandlerGenerator {
+    private static final String CLASS_OUTPUT_DIR = "target/classes";
+
     private TypeHandlerGenerator() {
     }
 
@@ -72,11 +77,35 @@ public class TypeHandlerGenerator {
         classAttr.addAnnotation(mappedJdbcTypes);
         ccFile.addAttribute(classAttr);
 
+
+        String outputDir = CLASS_OUTPUT_DIR;
+        if (haveManyPoms()) { // 如果是多模块的项目
+            List<File> sameNameClasses = searchSourceFileByName(className);
+            List<File> samePackageClasses = sameNameClasses.stream().filter(item -> item.getAbsolutePath().contains(className.replace(".", File.separator))).collect(Collectors.toList());
+            if (samePackageClasses.size() == 1) {
+                String beanPath = samePackageClasses.get(0).getAbsolutePath();
+                outputDir = beanPath.substring(0, beanPath.indexOf("src" + File.separator + "main")) + CLASS_OUTPUT_DIR;
+            } else {
+                throw new IllegalStateException("Too many " + className);
+            }
+        }
+
         // 生成class文件
         try {
-            handlerClazz.writeFile("target/classes");
+            handlerClazz.writeFile(outputDir);
         } catch (CannotCompileException | IOException e) {
             throw new IllegalStateException("Occurring an exception during class writing!", e);
         }
+    }
+
+    public static boolean haveManyPoms() {
+        String userDir = System.getProperty("user.dir");
+        return FileUtils.searchFiles(new File(userDir), "pom.xml").size() > 1;
+    }
+
+    public static List<File> searchSourceFileByName(String simpleName) {
+        String userDir = System.getProperty("user.dir");
+        String[] splited = simpleName.split("\\.");
+        return FileUtils.searchFiles(new File(userDir), splited[splited.length - 1] + ".java");
     }
 }
