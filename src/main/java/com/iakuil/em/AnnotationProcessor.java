@@ -31,6 +31,6 @@ public class AnnotationProcessor extends AbstractProcessor {
             }
         }
         messager.printMessage(Diagnostic.Kind.NOTE, "End to process the annotations by AnnotationProcessor.");
-        return true;
+        return false;
     }
 }
