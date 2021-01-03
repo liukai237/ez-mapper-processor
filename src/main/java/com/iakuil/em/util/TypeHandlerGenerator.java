@@ -75,7 +75,7 @@ public class TypeHandlerGenerator {
         ccFile.addAttribute(classAttr);
 
         // 生成class文件
-        String outputDir = ModuleUtils.getClassOutPutDir(className);
+        String outputDir = FileUtils.getClassOutPutDir(className);
         try {
             handlerClazz.writeFile(outputDir);
         } catch (CannotCompileException | IOException e) {

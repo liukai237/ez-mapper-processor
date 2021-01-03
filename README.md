@@ -11,7 +11,7 @@
 ```shell script
 mvn clean install
 ```
-> 目前构件存放在私服，后续会上传到中央仓库。
+
 ### 配置依赖
 ```xml
     <dependency>
@@ -21,7 +21,7 @@ mvn clean install
     </dependency>
 ```
 ### 配置注解参数
-可以和Lombok等注解处理器一样配置：
+和Lombok等注解处理器类似的配置：
 ```xml
 
 <plugin>
@@ -65,6 +65,6 @@ mybatis:
 
 ### 局限性
 如果是多模块的Maven工程，整个工程中不能有包名+类名完全一致的JSON映射对象。  
-比如：A模块有一个org.sample.Foo，B模块也有一个org.sample.Foo，并且两个类都添加了`@JsonEntity`注解，编译时就会报错：`Too Many org.sample.Foo`。
+比如：A模块有一个org.sample.Foo，B模块也有一个org.sample.Foo，并且两个类都添加了`@JsonEntity`注解，编译时就会报错：`Too many Classes: org.sample.Foo`。
 
 -- THE END --
