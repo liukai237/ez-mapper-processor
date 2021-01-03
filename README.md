@@ -6,18 +6,12 @@
 * JSON字段映射，自动生成JSON字段TypeHandler。
 
 ## 使用手册
-### 编译安装
-下载源码后执行maven命令：
-```shell script
-mvn clean install
-```
-
 ### 配置依赖
 ```xml
     <dependency>
         <groupId>com.iakuil</groupId>
         <artifactId>ez-mapper-processor</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </dependency>
 ```
 ### 配置注解参数
@@ -33,7 +27,7 @@ mvn clean install
             <path>
                 <groupId>com.iakuil</groupId>
                 <artifactId>ez-mapper-processor</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>0.0.1-RELEASE</version>
             </path>
         </annotationProcessorPaths>
     </configuration>
