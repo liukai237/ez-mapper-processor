@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/liukai237/ez-mapper-processor.svg?branch=master)](https://travis-ci.org/liukai237/ez-mapper-processor)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.iakuil/ez-mapper-processor/badge.svg?style=blue)](https://maven-badges.herokuapp.com/maven-central/com.iakuil/ez-mapper-processor)
-[![Javadocs](http://www.javadoc.io/badge/com.iakuil/ez-mapper-processor.svg)](http://www.javadoc.io/doc/com.iakuil/ez-mapper-processor)
 
 # Easy Mapper Processor
 
@@ -65,4 +64,4 @@ mybatis:
 如果是多模块的Maven工程，整个工程中不能有包名+类名完全一致的JSON映射对象。  
 比如：A模块有一个org.sample.Foo，B模块也有一个org.sample.Foo，并且两个类都添加了`@JsonEntity`注解，编译时就会报错：`Too many classes: org.sample.Foo`。
 
-<sub>Copyright (c) 2016 BotMill.io</sub>
+<sub>Copyright (c) 2021 iakuil.com</sub>
