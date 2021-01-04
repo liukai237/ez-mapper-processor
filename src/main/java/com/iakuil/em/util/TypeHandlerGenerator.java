@@ -35,15 +35,6 @@ public class TypeHandlerGenerator {
             // 添加基类
             handlerClazz.setSuperclass(pool.makeClass(AbstractJsonTypeHandler.class.getName()));
 
-            // 添加基类签名
-            SignatureAttribute.ClassType sig = new SignatureAttribute.ClassType(
-                    AbstractJsonTypeHandler.class.getName(),
-                    new SignatureAttribute.TypeArgument[]{
-                            new SignatureAttribute.TypeArgument(new SignatureAttribute.ClassType(className))
-                    }
-            );
-            handlerClazz.setGenericSignature(sig.encode());
-
             // 创建默认构造方法
             CtClass[] params = new CtClass[]{};
             CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS, null, null, handlerClazz);
@@ -51,6 +42,15 @@ public class TypeHandlerGenerator {
         } catch (CannotCompileException e) {
             throw new IllegalStateException("Occurring an exception during class generating!", e);
         }
+
+        // 添加基类签名
+        SignatureAttribute.ClassType sig = new SignatureAttribute.ClassType(
+                AbstractJsonTypeHandler.class.getName(),
+                new SignatureAttribute.TypeArgument[]{
+                        new SignatureAttribute.TypeArgument(new SignatureAttribute.ClassType(className))
+                }
+        );
+        handlerClazz.setGenericSignature(sig.encode());
 
         // 处理@MappedTypes和@MappedJdbcTypes注解
         ClassFile ccFile = handlerClazz.getClassFile();
