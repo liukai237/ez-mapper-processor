@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * 基于Jackson的JSON工具类
+ *
+ * @author Kai
  */
 public class JsonUtils {
     private static final ObjectMapper OBJECT_MAPPER;

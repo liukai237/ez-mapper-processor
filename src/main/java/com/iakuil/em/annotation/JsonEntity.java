@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * 将JavaBean标注为JSON实体字段
+ *
+ * @author Kai
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.SOURCE)

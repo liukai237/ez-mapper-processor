@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 /**
  * 文件相关工具类
+ *
+ * @author Kai
  */
 public class FileUtils {
     private static final String DEFAULT_CLASS_OUTPUT_DIR = "target/classes";
@@ -66,7 +68,7 @@ public class FileUtils {
                 String beanPath = samePackageClasses.get(0).getAbsolutePath();
                 outputDir = beanPath.substring(0, beanPath.indexOf("src" + File.separator + "main")) + DEFAULT_CLASS_OUTPUT_DIR;
             } else {
-                throw new IllegalStateException("Too many Classes: " + originalClassName);
+                throw new IllegalStateException("Too many classes: " + originalClassName);
             }
         }
 

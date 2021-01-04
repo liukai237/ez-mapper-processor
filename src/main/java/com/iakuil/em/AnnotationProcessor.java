@@ -13,6 +13,8 @@ import java.util.Set;
 
 /**
  * 注解处理器
+ *
+ * @author Kai
  */
 @AutoService(Processor.class)
 @SupportedAnnotationTypes(value = {"com.iakuil.em.annotation.JsonEntity"})

@@ -18,10 +18,10 @@ import java.io.IOException;
  * TypeHandler生成器
  *
  * <p>如果JavaBean存在{@link JsonEntity}注解，则生成对应的TypeHandler。</p>
+ *
+ * @author Kai
  */
 public class TypeHandlerGenerator {
-    private static final String DEFAULT_CLASS_OUTPUT_DIR = "target/classes";
-
     private TypeHandlerGenerator() {
     }
 

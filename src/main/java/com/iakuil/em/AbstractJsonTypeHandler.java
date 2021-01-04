@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 /**
  * MyBatis JSON字段处理器基类
+ *
+ * @author Kai
  */
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public abstract class AbstractJsonTypeHandler<T> extends BaseTypeHandler<T> {
