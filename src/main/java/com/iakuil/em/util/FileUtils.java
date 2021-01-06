@@ -82,6 +82,9 @@ public class FileUtils {
     public static File getSourceDir4MultiMoodleProj() {
         // 启动maven编译任务的目录
         File userDirFile = new File(System.getProperty("user.dir"));
+        if (userDirFile.getAbsolutePath().contains("compile-server")) {
+            return null;
+        }
 
         // 获取maven项目子模块
         List<String> modules;

@@ -9,7 +9,7 @@
 
     <name>Easy Mapper Processor</name>
     <url>https://github.com/liukai237/ez-mapper-processor</url>
-    <description>An annotation processor for generating TypeHandler of MyBatis.</description>
+    <description>An annotation processor for MyBatis TypeHandler generating.</description>
 
     <licenses>
         <license>
@@ -157,6 +157,9 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -223,6 +226,5 @@
             </distributionManagement>
         </profile>
     </profiles>
-
 
 </project>
