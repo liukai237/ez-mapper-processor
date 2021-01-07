@@ -14,7 +14,7 @@
     <dependency>
         <groupId>com.iakuil</groupId>
         <artifactId>ez-mapper-processor</artifactId>
-        <version>0.0.1-RELEASE</version>
+        <version>0.0.2-RELEASE</version>
     </dependency>
 ```
 ### 配置注解参数
@@ -30,7 +30,7 @@
             <path>
                 <groupId>com.iakuil</groupId>
                 <artifactId>ez-mapper-processor</artifactId>
-                <version>0.0.1-RELEASE</version>
+                <version>0.0.2-RELEASE</version>
             </path>
         </annotationProcessorPaths>
     </configuration>

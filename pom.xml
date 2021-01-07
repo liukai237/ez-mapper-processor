@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iakuil</groupId>
     <artifactId>ez-mapper-processor</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2-RELEASE</version>
 
     <name>Easy Mapper Processor</name>
     <url>https://github.com/liukai237/ez-mapper-processor</url>
