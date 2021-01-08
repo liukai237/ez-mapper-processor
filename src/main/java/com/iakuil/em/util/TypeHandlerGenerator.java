@@ -1,7 +1,7 @@
 package com.iakuil.em.util;
 
-import com.iakuil.em.AbstractJsonTypeHandler;
 import com.iakuil.em.annotation.JsonEntity;
+import com.iakuil.em.handler.AbstractJsonTypeHandler;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;

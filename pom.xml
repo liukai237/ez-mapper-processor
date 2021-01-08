@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iakuil</groupId>
     <artifactId>ez-mapper-processor</artifactId>
-    <version>0.0.2-RELEASE</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <name>Easy Mapper Processor</name>
     <url>https://github.com/liukai237/ez-mapper-processor</url>
@@ -56,6 +56,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.iakuil</groupId>
+            <artifactId>ez-mapper-core</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
@@ -227,4 +233,11 @@
         </profile>
     </profiles>
 
+    <distributionManagement>
+        <repository>
+            <id>rdc-snapshots</id>
+            <name>Aliyun Release Repository</name>
+            <url>https://packages.aliyun.com/maven/repository/2056769-snapshot-vcBUfn/</url>
+        </repository>
+    </distributionManagement>
 </project>
